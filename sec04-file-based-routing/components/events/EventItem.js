@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import classes from "./EventItem.module.css";
+
 export const EventItem = (props) => {
   const { id, title, date, image, location } = props;
   const displayDate = new Date(date).toLocaleDateString("ja-JP", {
@@ -9,19 +11,19 @@ export const EventItem = (props) => {
     day: "numeric",
   });
   return (
-    <li>
+    <li className={classes.item}>
       <Image src={"/" + image} alt={title} width={640} height={427} />
-      <div>
-        <div>
+      <div className={classes.content}>
+        <div className={classes.summary}>
           <h2> {title}</h2>
-          <div>
+          <div className={classes.date}>
             <time>{displayDate}</time>
           </div>
-          <div>
+          <div className={classes.address}>
             <address>{location}</address>
           </div>
         </div>
-        <div>
+        <div className={classes.actions}>
           <Link
             href={{
               pathname: "/events/[eventId]",
