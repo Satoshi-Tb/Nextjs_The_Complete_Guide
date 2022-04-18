@@ -1,6 +1,9 @@
-import Link from "next/link";
 import Image from "next/image";
 import classes from "./EventItem.module.css";
+import { Button } from "../ui/Button";
+import { AddressIcon } from "../icons/AddressIcon";
+import { DateIcon } from "../icons/DateIcon";
+import { ArrowRightIcon } from "../icons/ArrowRightIcon";
 
 export const EventItem = (props) => {
   const { id, title, date, image, location } = props;
@@ -17,21 +20,21 @@ export const EventItem = (props) => {
         <div className={classes.summary}>
           <h2> {title}</h2>
           <div className={classes.date}>
+            <DateIcon />
             <time>{displayDate}</time>
           </div>
           <div className={classes.address}>
+            <AddressIcon />
             <address>{location}</address>
           </div>
         </div>
         <div className={classes.actions}>
-          <Link
-            href={{
-              pathname: "/events/[eventId]",
-              query: { eventId: id },
-            }}
-          >
-            詳細&gt;&gt;
-          </Link>
+          <Button link={`/events/${id}`}>
+            <span>詳細</span>
+            <span className={classes.icon}>
+              <ArrowRightIcon />
+            </span>
+          </Button>
         </div>
       </div>
     </li>
