@@ -3,7 +3,7 @@ import classes from "./MainHeader.module.css";
 export const MainHeader = () => {
   return (
     <header className={classes.header}>
-      <div className={classes.log}>
+      <div className={classes.logo}>
         <Link href="/">NextEvents</Link>
       </div>
       <nav className={classes.navigation}>

@@ -17,7 +17,7 @@ const DUMMY_EVENTS = [
     location: "New Wall Street 5, 98765 New Work",
     date: "2021-05-30",
     image: "images/coocking-event.jpg",
-    isFeatured: true,
+    isFeatured: false,
   },
   {
     id: "e3",
