@@ -4,15 +4,11 @@ import { Button } from "../ui/Button";
 import { AddressIcon } from "../icons/AddressIcon";
 import { DateIcon } from "../icons/DateIcon";
 import { ArrowRightIcon } from "../icons/ArrowRightIcon";
+import { toDisplayDateString } from "../util/Common";
 
 export const EventItem = (props) => {
   const { id, title, date, image, location } = props;
-  const displayDate = new Date(date).toLocaleDateString("ja-JP", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const displayDate = toDisplayDateString(date);
   return (
     <li className={classes.item}>
       <Image src={"/" + image} alt={title} width={640} height={427} />

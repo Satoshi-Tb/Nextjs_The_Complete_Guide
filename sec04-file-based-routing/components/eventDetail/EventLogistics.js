@@ -3,16 +3,12 @@ import { LogisticsItem } from "./LogisticsItem";
 import classes from "./EventLogistics.module.css";
 import { DateIcon } from "../icons/DateIcon";
 import { AddressIcon } from "../icons/AddressIcon";
+import { toDisplayDateString } from "../util/Common";
 
 export const EventLogistics = (props) => {
   const { date, address, image, imageAlt } = props;
 
-  const displayDate = new Date(date).toLocaleDateString("ja-JP", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const displayDate = toDisplayDateString(date);
   const addressText = address.replace(", ", "\n");
 
   return (

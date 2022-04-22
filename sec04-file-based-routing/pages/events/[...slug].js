@@ -1,6 +1,8 @@
 import { EventList } from "../../components/events/EventList";
 import { getFilteredEvents } from "../../data/dummy-data";
 import { useRouter } from "next/router";
+import { ResultsTitle } from "../../components/events/ResultsTitle";
+import { ErrorAlert } from "../../components/ui/ErrorAlert";
 
 const FilteredEventsPage = () => {
   const router = useRouter();
@@ -22,19 +24,29 @@ const FilteredEventsPage = () => {
     numMonth < 1 ||
     numMonth > 12
   ) {
-    return <p>年月の指定が正しくありません。</p>;
+    return (
+      <ErrorAlert>
+        <p>年月の指定が正しくありません。</p>
+      </ErrorAlert>
+    );
   }
 
   const events = getFilteredEvents({ year: numYear, month: numMonth });
 
   if (!events || events.length === 0) {
-    return <p>イベントが存在しません</p>;
+    return (
+      <ErrorAlert>
+        <p>イベントが存在しません</p>
+      </ErrorAlert>
+    );
   }
 
+  const date = new Date(numYear, numMonth - 1);
   return (
-    <div>
+    <>
+      <ResultsTitle date={date} />
       <EventList items={events} />
-    </div>
+    </>
   );
 };
 
