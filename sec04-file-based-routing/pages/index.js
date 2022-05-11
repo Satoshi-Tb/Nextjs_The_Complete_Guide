@@ -1,8 +1,16 @@
 import { EventList } from "../components/events/EventList";
-import { getFeaturedEvents } from "../data/dummy-data";
+import { getFeaturedEvents } from "../helpers/ApiUtils";
 
-const HomePage = () => {
-  const featuredEvents = getFeaturedEvents();
+// client-side fetchする場合、
+// useEffect & fetch か useSWRを利用する
+// トップレベルコンポーネントをasyncにするとうまく動作しない
+
+// static site generation利用の場合、getStaticPropsを利用
+const HomePage = (props) => {
+  const { featuredEvents } = props;
+
+  // console.log(featuredEvents);
+
   return (
     <div>
       <EventList items={featuredEvents} />
@@ -11,3 +19,12 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+export const getStaticProps = async () => {
+  const featuredEvents = await getFeaturedEvents();
+  return {
+    props: {
+      featuredEvents: featuredEvents,
+    },
+  };
+};
