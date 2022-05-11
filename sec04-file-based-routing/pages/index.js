@@ -26,5 +26,6 @@ export const getStaticProps = async () => {
     props: {
       featuredEvents: featuredEvents,
     },
+    revalidate: 1800, // 再作成間隔を秒単位で設定する。設定時間は要件次第。
   };
 };

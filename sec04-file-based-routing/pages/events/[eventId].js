@@ -1,7 +1,7 @@
 import { EventContent } from "../../components/eventDetail/EventContent";
 import { EventLogistics } from "../../components/eventDetail/EventLogistics";
 import { EventSummary } from "../../components/eventDetail/EventSummary";
-import { getAllEvents, getEventById } from "../../helpers/ApiUtils";
+import { getEventById, getFeaturedEvents } from "../../helpers/ApiUtils";
 
 const EventDetailPage = (props) => {
   const { selectedEvent } = props;
@@ -35,6 +35,7 @@ export const getStaticProps = async (context) => {
     props: {
       selectedEvent: event,
     },
+    revalidate: 30, // 一覧ページよりも、再作成間隔を短くする。リアルタイム性が要求される場合、client-side-fetchも検討する。
   };
 };
 
@@ -42,7 +43,8 @@ export const getStaticProps = async (context) => {
 // 発生しうるパスのパターンを、getStaticPaths関数にて
 // あらかじめ定義する必要がある
 export const getStaticPaths = async () => {
-  const allEvents = await getAllEvents();
+  // 一部データのみ（＝参照頻度が高いデータのみ）を対象とする。そうすることで、過度にページがSSGされることを避ける。
+  const allEvents = await getFeaturedEvents();
 
   const paths = allEvents.map((event) => ({
     params: {
@@ -50,9 +52,13 @@ export const getStaticPaths = async () => {
     },
   }));
 
+  // fallbackフラグを有効にすることで、存在しないパスを指定された場合、SSGされるようにする
+  // fallbackフラグをblockingにした場合も、存在しないパスを指定された場合、SSGされる。
+  // trueの場合との違いは、SSGが完了してからクライアントにレスポンスを返すこと。
+  // どちらを選ぶかはUX要件次第になる。
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
