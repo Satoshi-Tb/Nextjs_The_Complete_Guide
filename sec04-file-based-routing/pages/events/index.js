@@ -2,6 +2,7 @@ import { EventList } from "../../components/events/EventList";
 import { EventsSearch } from "../../components/events/EventsSearch";
 import { useRouter } from "next/router";
 import { getAllEvents } from "../../helpers/ApiUtils";
+import Head from "next/head";
 
 const AllEventsPage = (props) => {
   const { allEvents } = props;

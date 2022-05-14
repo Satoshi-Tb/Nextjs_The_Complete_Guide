@@ -1,8 +1,8 @@
 import { EventList } from "../../components/events/EventList";
 import { getFilteredEvents } from "../../data/dummy-data";
-import { useRouter } from "next/router";
 import { ResultsTitle } from "../../components/events/ResultsTitle";
 import { ErrorAlert } from "../../components/ui/ErrorAlert";
+import Head from "next/head";
 
 // Fetch戦略について
 // Static Site Generationは適さない。
@@ -24,6 +24,13 @@ const FilteredEventsPage = (props) => {
 
   return (
     <>
+      <Head>
+        <title>Filtered Events</title>
+        <meta
+          name="description"
+          content={`${date.year}年${date.month}月のイベント一覧`}
+        ></meta>
+      </Head>
       <ResultsTitle date={new Date(date.year, date.month - 1)} />
       <EventList items={filteredEvents} />
     </>

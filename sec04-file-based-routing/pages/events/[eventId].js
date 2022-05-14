@@ -2,6 +2,7 @@ import { EventContent } from "../../components/eventDetail/EventContent";
 import { EventLogistics } from "../../components/eventDetail/EventLogistics";
 import { EventSummary } from "../../components/eventDetail/EventSummary";
 import { getEventById, getFeaturedEvents } from "../../helpers/ApiUtils";
+import Head from "next/head";
 
 const EventDetailPage = (props) => {
   const { selectedEvent } = props;
@@ -12,6 +13,10 @@ const EventDetailPage = (props) => {
 
   return (
     <>
+      <Head>
+        <title>{selectedEvent.title}</title>
+        <meta name="description" content={selectedEvent.description}></meta>
+      </Head>
       <EventSummary title={selectedEvent.title} />
       <EventLogistics
         imageAlt={selectedEvent.title}
